@@ -1,0 +1,23 @@
+Search : <input type="text" value="" ng-model="search.id" />
+Search : <input type="text" value="" ng-model="search.car" />
+Search : <input type="text" value="" ng-model="search.payment_method" />
+Search : <input type="text" value="" ng-model="search.currency" />
+Search : <input type="text" value="" ng-model="search.city" />
+<table border=1>
+
+	<tr ng-repeat="data in cars | limitTo:1">
+		 <td ng-repeat="(key, value) in data" >
+			 {{key | removeUnderscores | capitalizeWord }}
+		</td>
+	</tr>
+	
+	<tr ng-repeat="car in cars | filter : search">
+		<td>{{car.id}}</td>
+		<td>{{car.car}}</td>
+		<td>{{car.payment_method}}</td>
+		<td class="right aligned">{{car.currency  }}</td>
+		<td>{{car.city}}</td>
+
+	</tr>
+</table>
+	

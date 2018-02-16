@@ -1,0 +1,46 @@
+Search : <input type="text" value="" ng-model="search.id" />
+Search : <input type="text" value="" ng-model="search.first_name" />
+Search : <input type="text" value="" ng-model="search.last_name" />
+Search : <input type="text" value="" ng-model="search.email" />
+<table border=1 >
+	<!--
+	<tr ng-repeat="data in users | limitTo:1 | orderBy: '+id'">
+		 <td ng-click='sortColumn("id")' ng-class='sortClass("id")' ng-repeat="(key, value) in data" >
+			 {{key | removeUnderscores | capitalizeWord }}
+		</td>
+	
+	</tr>-->
+	<thead>
+              <tr>
+                <th ng-click="sort('id')">id
+                  <i class="fa fa-caret-down" ng-show="sortBy=='-ID'"></i>
+                  <i class="fa fa-caret-up" ng-show="sortBy=='ID'"></i>
+                </th>
+                <th ng-click="sort('Name')">fn
+                  <i class="fa fa-caret-down" ng-show="sortBy=='-Name'"></i>
+                  <i class="fa fa-caret-up" ng-show="sortBy=='Name'"></i>
+                </th>
+                <th ng-click="sort('Age')">ln
+                  <i class="fa fa-caret-down" ng-show="sortBy=='-Age'"></i>
+                  <i class="fa fa-caret-up" ng-show="sortBy=='Age'"></i>
+                </th>
+              </tr>
+            </thead>
+	<tr ng-repeat="data in users | orderBy:column:reverse">
+		
+		 <!--<td ng-repeat="(key, value) in data">
+			 {{value}}
+		</td>-->
+		<td>{{data.id}}</td>
+		<td>{{data.first_name}}</td>
+		<td>{{data.last_name}}</td>
+		<td><a ng-href="mailto:{{data.email}}">{{data.email}}</a> </td>
+
+	</tr>
+</table>
+	<!--
+<table>
+  <tr ng-repeat="(key, value) in data">
+    <td> {{key}} </td> <td> {{ value }} </td>
+  </tr>
+</table>-->

@@ -1,0 +1,35 @@
+Search : <input type="text" value="" ng-model="search.id" />
+Search : <input type="text" value="" ng-model="search.username" />
+Search : <input type="text" value="" ng-model="search.filename" />
+Search : <input type="text" value="" ng-model="search.datetime" />
+<table border=1>
+
+	<tr ng-repeat="data in uploads | limitTo:1">
+		 <td ng-repeat="(key, value) in data" >
+			 {{key | removeUnderscores | capitalizeWord }}
+		</td>
+	</tr>
+	
+	<tr ng-repeat="upload in uploads | filter : search">
+		<td>{{upload.id}}</td>
+		<td>{{upload.username}}</td>
+		<td>{{upload.filename}}</td>
+		<td> {{upload.datetime.date}} - {{upload.datetime.time}}
+			<!--<table>
+				<tr>
+				  <th>DATE</th>
+				  <th>TIME<th>
+				</tr>
+				<tr ng-repeat="dt in upload.datetime">
+				  <td>{{dt.date}}</td>
+				  <td>{{dt.time}}</td>
+				</tr>
+			 </table>-->
+			<!--<ul>
+              <li ng-repeat="dt in upload.datetime">{{dt.date}} -({{dt.time}}) </li>
+            </ul>-->
+		</td>
+
+	</tr>
+</table>
+	
