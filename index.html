@@ -2,7 +2,11 @@
 	<head>
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
-		
+		<!-- load momentJS (required for angular-moment) -->
+		<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
+
+		<!-- load angular-moment -->
+		<script src="//cdnjs.cloudflare.com/ajax/libs/angular-moment/0.9.0/angular-moment.min.js"></script>
 		<style>
 		/*table */
 		table{
@@ -56,12 +60,12 @@
 	var app=angular.module('myApp',["ngRoute"]);
 	app.config(['$routeProvider',function($routeProvider) {
 		$routeProvider
-		/*.when("/", {
-			templateUrl : "404.htmL"
+		.when("/", {
+			templateUrl : "main.html"
 			
-		})*/
+		})
 		.when("/tables/users", {
-			templateUrl : "tables/users.html",
+			templateUrl : "users.html",
 			controller : 'myController'
 		})
 		.when("/tables/uploads", {
@@ -82,17 +86,13 @@
 	 app.controller('myController', function($scope, $http) {
 	  $http({
 		method : "GET",
-		url : "users.json"
+		url : "tables/users.json"
 	  }).then(function mySuccess(response) {
 		  $scope.users = response.data;
-			  $scope.sortBy = 'id';
-			  $scope.sort = function(sortBy) {
-				if ($scope.sortBy == sortBy) {
-				  $scope.sortBy = '-' + sortBy
-				} else {
-				  $scope.sortBy = sortBy;
-				}
-			  }
+		  $scope.sort = function(keyname){
+			$scope.sortBy = keyname;  
+			$scope.reverse = !$scope.reverse; 
+		 } 
 			
 		}, function myError(response) {
 		  $scope.users = response.statusText;
@@ -104,6 +104,10 @@
 		url : "tables/uploads.json"
 	  }).then(function mySuccess(response) {
 		  $scope.uploads = response.data;
+		  $scope.sort = function(keyname){
+			$scope.sortBy = keyname;  
+			$scope.reverse = !$scope.reverse; 
+		 } 
 		}, function myError(response) {
 		  $scope.users = response.statusText;
 	  });
@@ -114,6 +118,10 @@
 		url : "tables/car_purchases.json"
 	  }).then(function mySuccess(response) {
 		  $scope.cars = response.data;
+		  $scope.sort = function(keyname){
+			$scope.sortBy = keyname;  
+			$scope.reverse = !$scope.reverse; 
+		 } 
 		}, function myError(response) {
 		  $scope.users = response.statusText;
 	  });
@@ -131,6 +139,19 @@
       return (!!text) ? text.charAt(0).toUpperCase() + text.substr(1).toLowerCase() : '';
     }
 	});
+	app.filter('dateFilter', function() {
+     function calculateDate(date) {
+         date = new Date(date);
+         var year = date.getFullYear();
+         var month = date.getMonth()+1;
+         var day = date.getDate();
+         return day+'-'+month+'-'+year;
+     }
+
+     return function(date) { 
+           return calculateDate(date);
+     }; 
+});
 
 
 	</script>

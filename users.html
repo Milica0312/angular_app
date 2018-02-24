@@ -2,31 +2,30 @@ Search : <input type="text" value="" ng-model="search.id" />
 Search : <input type="text" value="" ng-model="search.first_name" />
 Search : <input type="text" value="" ng-model="search.last_name" />
 Search : <input type="text" value="" ng-model="search.email" />
-<table border=1 >
+<table border=1 class="table table-striped table-hover">
 	<!--
 	<tr ng-repeat="data in users | limitTo:1 | orderBy: '+id'">
 		 <td ng-click='sortColumn("id")' ng-class='sortClass("id")' ng-repeat="(key, value) in data" >
 			 {{key | removeUnderscores | capitalizeWord }}
 		</td>
-	
 	</tr>-->
 	<thead>
-              <tr>
-                <th ng-click="sort('id')">id
-                  <i class="fa fa-caret-down" ng-show="sortBy=='-ID'"></i>
-                  <i class="fa fa-caret-up" ng-show="sortBy=='ID'"></i>
-                </th>
-                <th ng-click="sort('Name')">fn
-                  <i class="fa fa-caret-down" ng-show="sortBy=='-Name'"></i>
-                  <i class="fa fa-caret-up" ng-show="sortBy=='Name'"></i>
-                </th>
-                <th ng-click="sort('Age')">ln
-                  <i class="fa fa-caret-down" ng-show="sortBy=='-Age'"></i>
-                  <i class="fa fa-caret-up" ng-show="sortBy=='Age'"></i>
-                </th>
-              </tr>
-            </thead>
-	<tr ng-repeat="data in users | orderBy:column:reverse">
+		<tr>
+		  <th ng-click="sort('id')">Id
+			<span class="glyphicon sort-icon" ng-show="sortBy=='id'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+		  </th>
+		  <th ng-click="sort('first_name')">First name
+			<span class="glyphicon sort-icon" ng-show="sortBy=='first_name'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+		  </th>
+		  <th ng-click="sort('last_name')">Last name
+			<span class="glyphicon sort-icon" ng-show="sortBy=='last_name'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+		  </th>
+		   <th ng-click="sort('email')">Email
+			<span class="glyphicon sort-icon" ng-show="sortBy=='email'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+		  </th>
+		</tr>
+    </thead>
+	<tr ng-repeat="data in users | orderBy:sortBy:reverse|filter:search">
 		
 		 <!--<td ng-repeat="(key, value) in data">
 			 {{value}}

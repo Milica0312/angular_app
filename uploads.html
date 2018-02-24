@@ -3,18 +3,33 @@ Search : <input type="text" value="" ng-model="search.username" />
 Search : <input type="text" value="" ng-model="search.filename" />
 Search : <input type="text" value="" ng-model="search.datetime" />
 <table border=1>
-
+	<!--
 	<tr ng-repeat="data in uploads | limitTo:1">
 		 <td ng-repeat="(key, value) in data" >
 			 {{key | removeUnderscores | capitalizeWord }}
 		</td>
-	</tr>
-	
-	<tr ng-repeat="upload in uploads | filter : search">
+	</tr>-->
+	<thead>
+		<tr>
+		  <th ng-click="sort('id')">Id
+			<span class="glyphicon sort-icon" ng-show="sortBy=='id'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+		  </th>
+		  <th ng-click="sort('username')">Username
+			<span class="glyphicon sort-icon" ng-show="sortBy=='username'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+		  </th>
+		  <th ng-click="sort('filename')">Filename
+			<span class="glyphicon sort-icon" ng-show="sortBy=='filename'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+		  </th>
+		   <th ng-click="sort('datetime')">Date and time
+			<span class="glyphicon sort-icon" ng-show="sortBy=='datetime'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+		  </th>
+		</tr>
+    </thead>
+	<tr ng-repeat="upload in uploads | orderBy:sortBy:reverse|filter:search">
 		<td>{{upload.id}}</td>
 		<td>{{upload.username}}</td>
 		<td>{{upload.filename}}</td>
-		<td> {{upload.datetime.date}} - {{upload.datetime.time}}
+		<td> {{upload.datetime.date | dateFilter}} - {{upload.datetime.time}}
 			<!--<table>
 				<tr>
 				  <th>DATE</th>

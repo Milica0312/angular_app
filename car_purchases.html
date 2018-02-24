@@ -4,18 +4,36 @@ Search : <input type="text" value="" ng-model="search.payment_method" />
 Search : <input type="text" value="" ng-model="search.currency" />
 Search : <input type="text" value="" ng-model="search.city" />
 <table border=1>
-
+	<!--
 	<tr ng-repeat="data in cars | limitTo:1">
 		 <td ng-repeat="(key, value) in data" >
 			 {{key | removeUnderscores | capitalizeWord }}
 		</td>
-	</tr>
-	
-	<tr ng-repeat="car in cars | filter : search">
+	</tr>-->
+	<thead>
+		<tr>
+		  <th ng-click="sort('id')">Id
+			<span class="glyphicon sort-icon" ng-show="sortBy=='id'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+		  </th>
+		  <th ng-click="sort('car')">Car
+			<span class="glyphicon sort-icon" ng-show="sortBy=='car'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+		  </th>
+		  <th ng-click="sort('payment_method')">Payment method
+			<span class="glyphicon sort-icon" ng-show="sortBy=='payment_method'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+		  </th>
+		   <th ng-click="sort('currency')">Currency
+			<span class="glyphicon sort-icon" ng-show="sortBy=='currency'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+		  </th>
+		   <th ng-click="sort('city')">City
+			<span class="glyphicon sort-icon" ng-show="sortBy=='city'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+		  </th>
+		</tr>
+    </thead>
+	<tr ng-repeat="car in cars | orderBy:sortBy:reverse|filter:search">
 		<td>{{car.id}}</td>
 		<td>{{car.car}}</td>
 		<td>{{car.payment_method}}</td>
-		<td class="right aligned">{{car.currency  }}</td>
+		<td>{{car.currency  }}</td>
 		<td>{{car.city}}</td>
 
 	</tr>
