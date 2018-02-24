@@ -4,48 +4,15 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
 		<!-- load momentJS (required for angular-moment) -->
 		<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
-
 		<!-- load angular-moment -->
 		<script src="//cdnjs.cloudflare.com/ajax/libs/angular-moment/0.9.0/angular-moment.min.js"></script>
-		<style>
-		/*table */
-		table{
-		 border-collapse: collapse;
-		}
-		table th,table td{
-		 padding: 3px;
-		}
-
-		table th:hover{
-		 cursor: pointer;
-		}
-
-		.arrow-down:after,.arrow-up:after{
-		 content: ' ';
-		 position: relative;
-		 left: 2px;
-		 border: 8px solid transparent;
-		}
-
-		.arrow-down:after{
-		 top: 10px;
-		 border-top-color: black;
-		}
-
-		.arrow-up:after{
-		 bottom: 15px;
-		 border-bottom-color: black;
-		}
-
-		.arrow-down,.arrow-up{
-		 padding-right: 10px;
-		}
-		</style>
+		<link href="css/main.css" rel="stylesheet" type="text/css" />
+		<script src="app\app.js"></script>
 	</head>
 
-	
+
 	<body ng-app="myApp">
-	
+
 
 
 		<a href="#!tables/users">Users</a>
@@ -53,110 +20,7 @@
 		<a href="#!tables/car_purchases">Car purchases</a>
 
 		<div ng-view></div>
-		
-		
-		
-	<script>
-	var app=angular.module('myApp',["ngRoute"]);
-	app.config(['$routeProvider',function($routeProvider) {
-		$routeProvider
-		.when("/", {
-			templateUrl : "main.html"
-			
-		})
-		.when("/tables/users", {
-			templateUrl : "users.html",
-			controller : 'myController'
-		})
-		.when("/tables/uploads", {
-			templateUrl : "uploads.html",
-			controller : 'myController2'
-		})
-		.when("/tables/car_purchases", {
-			templateUrl : "car_purchases.html",
-			controller : 'myController3'
-		})
-		.otherwise({
-			templateUrl : "404.html"
-		})
-		;
-	
-	}]);
-
-	 app.controller('myController', function($scope, $http) {
-	  $http({
-		method : "GET",
-		url : "tables/users.json"
-	  }).then(function mySuccess(response) {
-		  $scope.users = response.data;
-		  $scope.sort = function(keyname){
-			$scope.sortBy = keyname;  
-			$scope.reverse = !$scope.reverse; 
-		 } 
-			
-		}, function myError(response) {
-		  $scope.users = response.statusText;
-	  });
-	});
-	 app.controller('myController2', function($scope, $http) {
-	  $http({
-		method : "GET",
-		url : "tables/uploads.json"
-	  }).then(function mySuccess(response) {
-		  $scope.uploads = response.data;
-		  $scope.sort = function(keyname){
-			$scope.sortBy = keyname;  
-			$scope.reverse = !$scope.reverse; 
-		 } 
-		}, function myError(response) {
-		  $scope.users = response.statusText;
-	  });
-	});
-	 app.controller('myController3', function($scope, $http) {
-	  $http({
-		method : "GET",
-		url : "tables/car_purchases.json"
-	  }).then(function mySuccess(response) {
-		  $scope.cars = response.data;
-		  $scope.sort = function(keyname){
-			$scope.sortBy = keyname;  
-			$scope.reverse = !$scope.reverse; 
-		 } 
-		}, function myError(response) {
-		  $scope.users = response.statusText;
-	  });
-	});
-	app.filter('removeUnderscores', [function() {
-	return function(string) {
-		if (!angular.isString(string)) {
-			return string;
-		}
-		return string.replace(/[/_/]/g, ' ');
-	 };
-	}]);
-	app.filter('capitalizeWord', function() {
-    return function(text) {
-      return (!!text) ? text.charAt(0).toUpperCase() + text.substr(1).toLowerCase() : '';
-    }
-	});
-	app.filter('dateFilter', function() {
-     function calculateDate(date) {
-         date = new Date(date);
-         var year = date.getFullYear();
-         var month = date.getMonth()+1;
-         var day = date.getDate();
-         return day+'-'+month+'-'+year;
-     }
-
-     return function(date) { 
-           return calculateDate(date);
-     }; 
-});
 
 
-	</script>
-		
-		
-		
 	</body>
 </html>
